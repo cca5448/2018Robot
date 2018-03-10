@@ -13,17 +13,21 @@ class OI
 		//create joystick objects
 		Joystick * driver_stick_throttle; //driver joystick left
 		Joystick * driver_stick_steer; //driver joystick right
-		Joystick * oper_stick; //operator joystick
+		Joystick * l_buttons; //left set of buttons
+		Joystick * r_buttons; //right set of buttons
 
 		//create buttons for control
-		JoystickButton * climber_up;
-		JoystickButton * climber_down;
-		JoystickButton * climber_stop;
-		JoystickButton * camera_toggle; //switch camera view
+		JoystickButton * climber_up; //retract climber
+		JoystickButton * climber_down; //extend climber
+		JoystickButton * climber_stop; //stop climber
+		//JoystickButton * camera_toggle; //switch camera view
 		JoystickButton * auton_next; //switch to next auton
 		JoystickButton * auton_prev; //switch to prev auton
 
-		JoystickButton * shooter_btn; //raise or lower shooter
+		JoystickButton * shooter_toggle_btn; //raise or lower shooter
+		JoystickButton * shooter_stop_btn; //stop shooter
+		JoystickButton * shooter_start_btn; //start shooter
+		JoystickButton * shooter_adv_btn; //advance shooter
 };
 
 #endif

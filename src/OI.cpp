@@ -5,9 +5,13 @@
 #include "Commands/Climber/StartClimberDown.h"
 #include "Commands/Climber/StopClimber.h"
 #include "Commands/Vision/CameraToggle.h"
-#include "Commands/Air/LowerShooter.h"
-#include "Commands/Air/RaiseShooter.h"
+//#include "Commands/Air/LowerShooter.h"
+//#include "Commands/Air/RaiseShooter.h"
 #include "Commands/Air/ToggleShooter.h"
+#include "Commands/Shooter/StartShooter.h"
+#include "Commands/Shooter/StopShooter.h"
+#include "Commands/Shooter/AdvanceShooter.h"
+#include "Commands/Shooter/AdvanceShooterStop.h"
 
 float DeadZone(float axisVal)
 {
@@ -90,38 +94,53 @@ OI::OI()
 	//joysticks
 	driver_stick_throttle = new Joystick(JOY_DRIVE_THROT);
 	driver_stick_steer = new Joystick(JOY_DRIVE_STEER);
-	oper_stick = new Joystick(JOY_OPER);
+	r_buttons = new Joystick(JOY_OPER);
+	l_buttons = new Joystick(JOY_DRIVE_THROT);
 
-	//buttons to control bot
-	climber_up = new JoystickButton(oper_stick,BTN_CLIMB_UP);
-	climber_down = new JoystickButton(oper_stick,BTN_CLIMB_DOWN);
-	climber_stop = new JoystickButton(oper_stick,BTN_CLIMB_STOP);
-	auton_next = new JoystickButton(oper_stick,BTN_AUTON_NEXT);
-	auton_prev = new JoystickButton(oper_stick,BTN_AUTON_PREV);
-	camera_toggle = new JoystickButton(oper_stick,BTN_CAM_TOGGLE);
-	shooter_btn = new JoystickButton(driver_stick_throttle,BTN_SHOOTER_UP);
+	//left button definitions
+	//intake_in_btn = new JoystickButton(l_buttons,BTN_INTAKE_IN);
+	//intake_stop_btn = new JoystickButton(l_buttons,BTN_INTAKE_STOP);
+	//intake_out_btn = new JoystickButton(l_buttons,BTN_INTAKE_OUT);
+	auton_next = new JoystickButton(l_buttons,BTN_AUTON_NEXT);
+	auton_prev = new JoystickButton(l_buttons,BTN_AUTON_PREV);
 
+	//right button definitions
+	climber_up = new JoystickButton(r_buttons,BTN_CLIMB_UP);
+	climber_down = new JoystickButton(r_buttons,BTN_CLIMB_DOWN);
+	climber_stop = new JoystickButton(r_buttons,BTN_CLIMB_STOP);
+	//camera_toggle = new JoystickButton(r_buttons,BTN_CAM_TOGGLE);
+	shooter_toggle_btn = new JoystickButton(r_buttons,BTN_SHOOTER_UP);
+	shooter_stop_btn = new JoystickButton(r_buttons,BTN_SHOOTER_STOP);
+	shooter_start_btn = new JoystickButton(r_buttons,BTN_SHOOTER_START);
+	shooter_adv_btn = new JoystickButton(r_buttons,BTN_SHOOTER_ADV);
+
+
+	//auton_next->ToggleWhenPressed(new NextAuton()); //Next Auton Mode
+	//auton_prev->ToggleWhenPressed(new PrevAuton()); //Prev Auton Mode
+	//camera_toggle->ToggleWhenPressed(new CameraToggle());
+
+	//climber buttons
 	//climber_up->ToggleWhenPressed(new StartClimberUp());
 	//climber_down->ToggleWhenPressed(new StartClimberDown());
 	climber_stop->ToggleWhenPressed(new StopClimber());
-	camera_toggle->ToggleWhenPressed(new CameraToggle());
-	//auton_next->ToggleWhenPressed(new NextAuton()); //Next Auton Mode
-	//auton_prev->ToggleWhenPressed(new PrevAuton()); //Prev Auton Mode
 
-	//shooter_btn->WhenPressed(new RaiseShooter());
-	//shooter_btn->WhenReleased(new LowerShooter());
-	shooter_btn->WhenPressed(new ToggleShooter());
+	//shooter button actions
+	shooter_toggle_btn->WhenPressed(new ToggleShooter());
+	shooter_stop_btn->WhenPressed(new StopShooter());
+	shooter_start_btn->WhenPressed(new StartShooter());
+	shooter_adv_btn->WhenPressed(new AdvanceShooter());
+	shooter_adv_btn->WhenReleased(new AdvanceShooterStop());
 }
 
 //method will return the drive throttle axis
 double OI::GetThrottleAxis(){
-	float m_throttle = DeadZone(driver_stick_throttle->GetRawAxis(JOY_DRV_AXIS_THROT));
+	//float m_throttle = DeadZone(driver_stick_throttle->GetRawAxis(JOY_DRV_AXIS_THROT));
 	//SmartDashboard::PutNumber("Throttle",m_throttle);
 	return -(InputShape(DeadZone(driver_stick_throttle->GetRawAxis(JOY_DRV_AXIS_THROT))));
 }
 //method will return the drive steer axis
 double OI::GetSteerAxis(){
-	float m_steer = SteeringDeadZone(driver_stick_steer->GetRawAxis(JOY_DRV_AXIS_STEER));
+	//float m_steer = SteeringDeadZone(driver_stick_steer->GetRawAxis(JOY_DRV_AXIS_STEER));
 	//SmartDashboard::PutNumber("Steer",m_steer);
 	return -(InputShape(DeadZone(driver_stick_steer->GetRawAxis(JOY_DRV_AXIS_STEER))));
 }

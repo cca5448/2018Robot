@@ -22,18 +22,22 @@ const unsigned short MOT_DRV_RR			= 4; //Speed Controller 4 is Right Rear
 //CAN IDs - Pigeon IMU
 const unsigned short IMU_CAN_ID			= 60; //Which CAN ID is the IMU at (or which controller CAN ID)
 //CAN IDs - Shooter
-const unsigned short MOT_SHOOTER_L		= 5;
-const unsigned short MOT_SHOOTER_R		= 6;
+const unsigned short MOT_SHOOTER_L		= 6;
+const unsigned short MOT_SHOOTER_R		= 7;
 
 //PWM IDs
-const unsigned short MOT_INTAKE_LOAD	= 0;
-const unsigned short MOT_INTAKE_L		= 1;
-const unsigned short MOT_INTAKE_R		= 2;
-const unsigned short MOT_INTAKE_SPEED_DEF = 1.0; //Speed of Intake
+const unsigned short MOT_INTAKE_LOAD	= 9; //Load belts
+const unsigned short MOT_INTAKE_L		= 1; //Left Intake
+const unsigned short MOT_INTAKE_R		= 2; //Right Intake
+const unsigned short MOT_CLIMB			= 4; //PWM Pin for Climber
 
-//climber Motors
-const unsigned short MOT_CLIMB		= 4; //PWM Pin for Climber
+//default motor speeds
+const unsigned short MOT_INTAKE_SPEED_DEF = 0.5; //Speed of Intake motors
+const unsigned short MOT_LOAD_BELT_SPEED_DEF = 1.0; //Speed of load belt
+const unsigned short MOT_SHOOTER_SPEED_HIGH_DEF = 0.5; //Speed of shooter in high
+const unsigned short MOT_SHOOTER_SPEED_LOW_DEF 	= 0.25; //Speed of shooter in low
 const unsigned short MOT_CLIMB_SPEED_DEF		= 1.0; //Speed of Climber
+
 
 //Joysticks
 const unsigned short JOY_DRIVE_THROT	= 0; //USB Port Driver Joystick left (throttle)
@@ -45,29 +49,24 @@ const unsigned short JOY_OTHER			= JOY_DRIVE_THROT; //Which stick has the left b
 const unsigned short JOY_DRV_AXIS_THROT	= 1; //Axis for Throttle
 const unsigned short JOY_DRV_AXIS_STEER	= 0; //Axis for Steering
 
-//Buttons on other stick
-const unsigned short BTN_AUTON_1 = 1; //Auton 1
-const unsigned short BTN_AUTON_2 = 2; //Auton 2
-const unsigned short BTN_AUTON_3 = 3; //Auton 3
-const unsigned short BTN_AUTON_4 = 4; //Auton 4
-const unsigned short BTN_AUTON_5 = 5; //Auton 5
-const unsigned short BTN_AUTON_PREV	= 6; //Button for Auton Prev
-const unsigned short BTN_AUTON_NEXT	= 7; //Button for Auton Next
-const unsigned short BTN_AUTON_6 = 9; //Auton 6
-const unsigned short BTN_AUTON_7 = 10; //Auton 7
-const unsigned short BTN_AUTON_8 = 11; //Auton 8
-const unsigned short BTN_AUTON_9 = 12; //Auton 9
-const unsigned short BTN_AUTON_10 = 13; //Auton 10
+//Left set of buttons (Throttle Stick)
+const unsigned short BTN_INTAKE_IN = 3; //forward intake
+const unsigned short BTN_INTAKE_STOP = 4; //stop intake
+const unsigned short BTN_INTAKE_OUT = 5; //reverse intake
+const unsigned short BTN_AUTON_PREV	= 7; //previous auton
+const unsigned short BTN_AUTON_NEXT	= 8; //next auton
 
-//Buttons on oper stick
-const unsigned short BTN_CLIMB_UP		= 14; //forward climber
-const unsigned short BTN_CLIMB_DOWN		= 15; //reverse climber
+//Right set of buttons (Steer Stick)
+const unsigned short BTN_CLIMB_DOWN		= 14; //forward climber
+const unsigned short BTN_CLIMB_UP		= 15; //reverse climber
 const unsigned short BTN_CLIMB_STOP		= 8; //stop climber
 const unsigned short BTN_CAM_TOGGLE		= 5; //toggle camera
+const unsigned short BTN_SHOOTER_ADV	= 1; //shooter advance (intake lift)
+const unsigned short BTN_SHOOTER_START	= 2; //shooter start
+const unsigned short BTN_SHOOTER_STOP	= 3; //shooter stop
 const unsigned short BTN_SHOOTER_UP		= 4; //shooter lift toggle
 
 //Solonoids for pneumatics
-const unsigned short SOL_SHOOTER_UP		= 0; //Shooter Up
-const unsigned short SOL_SHOOTER_DN		= 1; //Shooter Down
+const unsigned short SOL_SHOOTER_UP		= 0; //Shooter Up/Down
 const unsigned short SOL_INTAKE_IN		= 3; //Intake arms together
 #endif

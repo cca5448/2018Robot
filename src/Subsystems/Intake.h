@@ -13,12 +13,16 @@ class Intake: public Subsystem
 	public:
 		Intake();
 		void InitDefaultCommand();
-		void IntakeFwd(); //run intake forward
-		void IntakeRev(); //run intake reverse
+		void IntakeIn(); //run intake forward
+		void IntakeOut(); //run intake reverse
 		void IntakeStop(); //stop intake
+		void LoadBeltIn(); //run load belt forward
+		void LoadBeltOut(); //run load belt reverse
+		void LoadBeltStop(); //stop load belt
 		bool IsIntakeRunning(); //check if intake is running
 		bool IsIntakeFwd(); //true if intake is forward direction
-
+		bool IsLoadBeltRunning(); //check if load belt is running
+		bool IsLoadBeltFwd(); //true if load belt is forward direction
 };
 
 #endif

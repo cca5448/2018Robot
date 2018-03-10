@@ -50,11 +50,8 @@ void DriveBase::DriveTank(double throttle, double steer)
 
 	if (++debugPrintLoops > 30) {
 		debugPrintLoops = 0;
-		printf("------------------------------\n", throttle);
-		printf("throttle: %f\n", throttle);
-		printf("steer: %f\n", steer);
-		printf("left: %f\n", left);
-		printf("right: %f\n", right);
+		//printf("------------------------------\n", throttle);
+		printf("throttle: %f / steer: %f / left: %f / right: %f\n", throttle, steer, left, right);
 	}
 
 	/* right side motors need to drive negative to move robot forward */

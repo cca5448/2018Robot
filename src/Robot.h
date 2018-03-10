@@ -13,6 +13,8 @@
 #include "Subsystems/Vision.h"
 #include "Subsystems/Air.h"
 #include "Subsystems/Setup.h"
+#include "Subsystems/Shooter.h"
+#include "Subsystems/Intake.h"
 
 class Robot: public IterativeRobot
 {
@@ -24,11 +26,13 @@ class Robot: public IterativeRobot
 		static Vision * vision;
 		static Air * air;
 		static Setup * setup;
+		static Shooter * shooter;
+		static Intake * intake;
 
 	private:
 		//LiveWindow * lw;
-		Command * autoncommand;
-//		SendableChooser<Command *> * autonchooser;
+		std::unique_ptr<frc::Command> autoncommand;
+		frc::SendableChooser<frc::Command *> autonchooser;
 		void RobotInit();
 		void AutonomousInit();
 		void AutonomousPeriodic();

@@ -11,6 +11,8 @@ DriveBase * Robot::drivebase = NULL;
 Vision * Robot::vision = NULL;
 Air * Robot::air = NULL;
 Setup * Robot::setup = NULL;
+Shooter * Robot::shooter = NULL;
+Intake * Robot::intake = NULL;
 
 void Robot::RobotInit(){
 
@@ -21,23 +23,25 @@ void Robot::RobotInit(){
 	vision = new Vision();
 	air = new Air();
 	setup = new Setup();
+	shooter = new Shooter();
+	intake = new Intake();
 
-/*
+
 	//setup auton drop downs
-	autonchooser = new SendableChooser<Command *>();
-	autonchooser->AddDefault("Do Nothing",new Autonomous(0));
-	autonchooser->AddObject("Drive to Baseline",new Autonomous(1));
-	autonchooser->AddObject("Left back turn left gear deliver",new Autonomous(2));
-	autonchooser->AddObject("Straight back gear deliver",new Autonomous(3));
-	autonchooser->AddObject("Right back turn right gear deliver",new Autonomous(4));
-	SmartDashboard::PutData("Auto Selector", autonchooser);
-*/
+	//autonchooser = new SendableChooser();
+	autonchooser.AddDefault("Do Nothing",new Autonomous(0));
+	autonchooser.AddObject("Drive to Baseline",new Autonomous(1));
+	autonchooser.AddObject("Left back turn left gear deliver",new Autonomous(2));
+	autonchooser.AddObject("Straight back gear deliver",new Autonomous(3));
+	autonchooser.AddObject("Right back turn right gear deliver",new Autonomous(4));
+	SmartDashboard::PutData("Auto Selector", &autonchooser);
+
 
 	//other stuff
 	//lw = LiveWindow::GetInstance();
 //	autoncommand = (Command *) autonchooser->GetSelected();
-	int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
-	autoncommand = new Autonomous(mode);
+//	int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
+//	autoncommand = new Autonomous(mode);
 	drivebase->CalibrateGyro();
 	drivebase->ResetEncoderPosition();
 
@@ -45,9 +49,13 @@ void Robot::RobotInit(){
 
 void Robot::AutonomousInit(){
 	drivebase->ResetEncoderPosition();
-	int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
-	autoncommand = new Autonomous(mode);
-	autoncommand->Start();
+	//int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
+	//autoncommand = new Autonomous(mode);
+	//autoncommand->Start();
+	autoncommand.reset(autonchooser.GetSelected());
+	if(autoncommand.get() != nullptr) {
+		autoncommand->Start();
+	}
 }
 
 void Robot::AutonomousPeriodic(){

@@ -9,6 +9,7 @@ Shooter::Shooter() : Subsystem("Shooter")
 	//SmartDashboard::PutString("Shooter Speed",std::to_string(Robot::setup->SDB_ReturnShooterSpeed()));
 	shooter_motor_left = new TalonSRX(MOT_SHOOTER_L);
 	shooter_motor_right = new TalonSRX(MOT_SHOOTER_R);
+	shooter_up = true;
 }
 
 void Shooter::InitDefaultCommand()
@@ -71,4 +72,10 @@ double Shooter::Ceiling(double value, double peak)
 	if (value > +peak)
 		return +peak;
 	return value;
+}
+
+bool Shooter::IsShooterUp()
+{
+	if (Shooter::shooter_up == true) return true;
+	return false;
 }
