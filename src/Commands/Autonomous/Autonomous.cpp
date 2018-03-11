@@ -22,12 +22,24 @@ Autonomous::Autonomous(int mode)
 	m_AUTON_MODE = mode;
 	SmartDashboard::PutNumber("Auton Mode",m_AUTON_MODE);
 
+	bool GameSpecificAuton = false;
+	std::string FMSGameData;
+	FMSGameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	if (FMSGameData.length > 0) {
+		GameSpecificAuton = true;
+		bool mySwitchLeft = (FMSGameData[0] == 'L') ? true : false;
+		bool scaleLeft = (FMSGameData[1] == 'L') ? true : false;
+		bool farSwitchLeft = (FMSGameData[0] == 'L') ? true : false;
+	} else {
+		GameSpecificAuton = false;
+	}
+
 	switch (m_AUTON_MODE) {
 		case 0: //do nothing
 			SmartDashboard::PutString("Auton","Do Nothing");
 			break;
 		case 1: //drive to baseline
-			SmartDashboard::PutString("Auton","Drive Backwards To Baseline");
+			SmartDashboard::PutString("Auton","Drive Forward To Baseline");
 			AddSequential(new AutoDriveBackwards(65));
 			break;
 		case 2: //left backwards turn left backwards to gear
