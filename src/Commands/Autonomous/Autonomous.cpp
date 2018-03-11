@@ -2,7 +2,7 @@
 #include "Robot.h"
 //#include "CommandGroups/SimpleAuto.h"
 
-#include "CommandGroups/SingleCommands/Drive/AutoDriveBackwards.h"
+#include "CommandGroups/SingleCommands/Drive/AutoDriveBackward.h"
 #include "CommandGroups/SingleCommands/Drive/AutoDriveForward.h"
 #include "CommandGroups/SingleCommands/Drive/AutoDriveTurnLeft.h"
 #include "CommandGroups/SingleCommands/Drive/AutoDriveTurnRight.h"
@@ -25,11 +25,16 @@ Autonomous::Autonomous(int mode)
 	bool GameSpecificAuton = false;
 	std::string FMSGameData;
 	FMSGameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	bool mySwitchLeft = false;
+	bool scaleLeft = false;
+	bool farSwitchLeft = false;
+	bool deliverCube = false; //SmartDashboard::GetBoolean("DB/3");
+
 	if (FMSGameData.length > 0) {
 		GameSpecificAuton = true;
-		bool mySwitchLeft = (FMSGameData[0] == 'L') ? true : false;
-		bool scaleLeft = (FMSGameData[1] == 'L') ? true : false;
-		bool farSwitchLeft = (FMSGameData[0] == 'L') ? true : false;
+		mySwitchLeft = (FMSGameData[0] == 'L') ? true : false;
+		scaleLeft = (FMSGameData[1] == 'L') ? true : false;
+		farSwitchLeft = (FMSGameData[0] == 'L') ? true : false;
 	} else {
 		GameSpecificAuton = false;
 	}
@@ -37,28 +42,68 @@ Autonomous::Autonomous(int mode)
 	switch (m_AUTON_MODE) {
 		case 0: //do nothing
 			SmartDashboard::PutString("Auton","Do Nothing");
+			printf("CLU: Flynn told me to do nothing.");
 			break;
-		case 1: //drive to baseline
+		case 1: //drive forward to baseline
 			SmartDashboard::PutString("Auton","Drive Forward To Baseline");
-			AddSequential(new AutoDriveBackwards(65));
+			printf("CLU: Driving forward to baseline!");
+			AddSequential(new AutoDriveForward(65));
 			break;
-		case 2: //left backwards turn left backwards to gear
-			SmartDashboard::PutString("Auton","Left Backwards Turn Left Deliver Gear");
-			AddSequential(new AutoDriveBackwards(90));
-			AddSequential(new AutoDriveTurnRight(53));
-			AddSequential(new AutoResetEncoder());
-			AddSequential(new AutoDriveBackwards(24));
+		case 2: //left start, drive forward to baseline, turn right
+			SmartDashboard::PutString("Auton","Left Start, Drive Fwd, Turn and deliver cube if needed");
+			AddSequential(new AutoDriveForward(90));
+			if (mySwitchLeft) { //if the Switch is on this side, turn and deliver a cube
+				printf("CLU: Turning right to goto switch.")
+				AddSequential(new AutoDriveTurnRight(90));
+				AddSequential(new AutoResetEncoder());
+				AddSequential(new AutoDriveForward(24));
+			} else {
+				printf("CLU: The switch is too far away for me to reach!");
+			}
+			if (deliverCube) {
+				printf("CLU: Delivering a cube!\n");
+				//AddSequential(new AutoShooterStart());
+				//AddSequential(new AutoShooterAdvance());
+			}
 			break;
-		case 3: //straight backwards to gear
-			SmartDashboard::PutString("Auton","Straight Backwards Deliver Gear");
-			AddSequential(new AutoDriveBackwards(82));
+		case 3: //center start, drive forward to proper side, deliver cube
+			SmartDashboard::PutString("Auton","Center Start, Drive Fwd, Turn to correct switch, deliver cube");
+			AddSequential(new AutoDriveForward(10)); //drive part way to switch
+			if (mySwitchLeft) { //if the switch is on the left, turn left then right
+				printf("CLU: going to left side of switch\n");
+				AddSequential(new AutoDriveTurnLeft(45)); //turn left
+				AddSequential(new AutoDriveForward(72)); //drive forward to be in front of the switch
+				AddSequential(new AutoDriveTurnRight(45)); //turn towards the switch
+				AddSequential(new AutoDriveForward(20)); //drive forward to fence
+			} else { //switch is on the right, turn right then left
+				printf("CLU: going to right side of switch\n");
+				AddSequential(new AutoDriveTurnRight(45)); //turn right
+				AddSequential(new AutoDriveForward(72));
+				AddSequential(new AutoDriveTurnLeft(45));
+				AddSequential(new AutoDriveForward(20));
+			}
+			if (deliverCube) {
+				printf("CLU: Delivering a Cube!\n");
+				//AddSequential(new AutoShooterStart());
+				//AddSequential(new AutoShooterAdvance());
+			}
 			break;
-		case 4: //right backwards turn right backwards to gear
-			SmartDashboard::PutString("Auton","Right Backwards Turn Right Deliver Gear");
-			AddSequential(new AutoDriveBackwards(90));
-			AddSequential(new AutoDriveTurnLeft(53));
-			AddSequential(new AutoResetEncoder());
-			AddSequential(new AutoDriveBackwards(24));
+		case 4: //right start, drive forward to baseline, turn left
+			SmartDashboard::PutString("Auton","Right Start, Drive Fwd, Turn and deliver cube if needed");
+			AddSequential(new AutoDriveForward(90));
+			if (mySwitchLeft) { //if the Switch is on this side, turn and deliver a cube
+				printf("CLU: Turning left to goto switch.")
+				AddSequential(new AutoDriveTurnLeft(90));
+				AddSequential(new AutoResetEncoder());
+				AddSequential(new AutoDriveForward(24));
+			} else {
+				printf("CLU: The switch is too far away for me to reach!");
+			}
+			if (deliverCube) {
+				printf("CLU: Delivering a cube!\n");
+				//AddSequential(new AutoShooterStart());
+				//AddSequential(new AutoShooterAdvance());
+			}
 			break;
 		case 5: //drive forward to baseline
 			SmartDashboard::PutString("Auton","Drive forwards to Baseline");
@@ -72,6 +117,7 @@ Autonomous::Autonomous(int mode)
 	//Run SimpleAuto sequence
 	//AddSequential(new SimpleAuto());
 
+	//Old steamworks stuff for reference
 	//Drive to baseline, turn, aim, feed fuel
 	//AddSequential(new DriveToBaseline(500));
 	//AddSequential(new AutoDriveTurnLeft(75.0));
