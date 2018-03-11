@@ -108,23 +108,15 @@ double DriveBase::Ceiling(double value, double peak)
 
 float DriveBase::ReturnEncoderDistance(float e1, float e2, float distance)
 {
-	//lf_motor->SetFeedbackDevice(TalonSRX::QuadEncoder); //tells left talon it has encoder
-	//rf_motor->SetFeedbackDevice(TalonSRX::QuadEncoder); //tells right talon it has encoder
+	lf_motor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+	rf_motor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
 
-	////lf_motor->SetSensorDirection(true);
-	////rf_motor->SetSensorDirection(true); See Talon SRX Software Reference section 7.4
-
-	//e1 = lf_motor->GetEncPosition() * -1; //sets e1 to left value
-	//e2 = rf_motor->GetEncPosition() * 1; //sets e2 to right value
-	//distance = e1;  //set distance to e1
-	//distance += e2; //add e2 encoder value
-	//distance /= 2; //divide by 2 to get the average
-	//SmartDashboard::PutNumber("Encoder Left",e1);
-	//SmartDashboard::PutNumber("Encoder Right",e2);
-	//SmartDashboard::PutNumber("Encoder Average",distance);
-	//SmartDashboard::PutNumber("Encoder Inches",ConvertEncoderToInches(distance));
-	//return distance;
-	return 0;
+	e1 = lf_motor->GetSelectedSensorPosition(0) * -1; //sets e1 to left value
+	e2 = rf_motor->GetSelectedSensorPosition(0) * 1; //sets e2 to right value
+	distance = e1;  //set distance to e1
+	distance += e2; //add e2 encoder value
+	distance /= 2; //divide by 2 to get the average
+	return distance;
 }
 
 float DriveBase::ConvertInchesToEncoder(float inches)
@@ -141,8 +133,8 @@ float DriveBase::ConvertEncoderToInches(float encUnits)
 
 void DriveBase::ResetEncoderPosition()
 {
-	//lf_motor->SetPosition(0); //set left to 0
-	//rf_motor->SetPosition(0); //set right to 0
+	lf_motor->SetSelectedSensorPosition(0,0,0);
+	rf_motor->SetSelectedSensorPosition(0,0,0);
 }
 
 float DriveBase::ReturnGyroAngle()
