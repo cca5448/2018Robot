@@ -16,10 +16,11 @@
 
 //#include "CommandGroups/DriveToGear.h"
 
-Autonomous::Autonomous(int mode)
+Autonomous::Autonomous(int mode, bool cube)
 {
 	Requires(Robot::drivebase);
 	m_AUTON_MODE = mode;
+	m_CUBE = cube;
 	SmartDashboard::PutNumber("Auton Mode",m_AUTON_MODE);
 
 	bool GameSpecificAuton = false;
@@ -28,9 +29,9 @@ Autonomous::Autonomous(int mode)
 	bool mySwitchLeft = false;
 	bool scaleLeft = false;
 	bool farSwitchLeft = false;
-	bool deliverCube = false; //SmartDashboard::GetBoolean("DB/3");
+	bool deliverCube = cube;
 
-	if (FMSGameData.length > 0) {
+	if ( FMSGameData.length() > 0 ) {
 		GameSpecificAuton = true;
 		mySwitchLeft = (FMSGameData[0] == 'L') ? true : false;
 		scaleLeft = (FMSGameData[1] == 'L') ? true : false;
@@ -53,7 +54,7 @@ Autonomous::Autonomous(int mode)
 			SmartDashboard::PutString("Auton","Left Start, Drive Fwd, Turn and deliver cube if needed");
 			AddSequential(new AutoDriveForward(90));
 			if (mySwitchLeft) { //if the Switch is on this side, turn and deliver a cube
-				printf("CLU: Turning right to goto switch.")
+				printf("CLU: Turning right to goto switch.");
 				AddSequential(new AutoDriveTurnRight(90));
 				AddSequential(new AutoResetEncoder());
 				AddSequential(new AutoDriveForward(24));  //could use ultrasonic sensor here!
@@ -92,7 +93,7 @@ Autonomous::Autonomous(int mode)
 			SmartDashboard::PutString("Auton","Right Start, Drive Fwd, Turn and deliver cube if needed");
 			AddSequential(new AutoDriveForward(90));
 			if (mySwitchLeft) { //if the Switch is on this side, turn and deliver a cube
-				printf("CLU: Turning left to goto switch.")
+				printf("CLU: Turning left to goto switch.");
 				AddSequential(new AutoDriveTurnLeft(90));
 				AddSequential(new AutoResetEncoder());
 				AddSequential(new AutoDriveForward(24)); //could use ultrasonic sensor here!
@@ -105,9 +106,10 @@ Autonomous::Autonomous(int mode)
 				//AddSequential(new AutoShooterAdvance());
 			}
 			break;
-		case 5: //drive forward to baseline
-			SmartDashboard::PutString("Auton","Drive forwards to Baseline");
-			AddSequential(new AutoDriveForward(65));
+		case 5: //drive backward to baseline
+			SmartDashboard::PutString("Auton","Drive backward to Baseline");
+			printf("CLU: Driving backward to baseline!");
+			AddSequential(new AutoDriveBackward(65));
 			break;
 		default: //do nothing
 			SmartDashboard::PutString("Auton","Do Nothing (default)");

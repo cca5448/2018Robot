@@ -55,17 +55,10 @@ void Robot::RobotInit(){
 void Robot::AutonomousInit(){
 	drivebase->ResetGyro();
 	drivebase->ResetEncoderPosition();
-	//int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
-	//autoncommand = new Autonomous(mode);
-	//autoncommand->Start();
-
-	//chooser
-/*
-	autoncommand.reset(autonchooser.GetSelected());
-	if(autoncommand.get() != nullptr) {
-		autoncommand->Start();
-	}
-*/
+	int mode = (int) SmartDashboard::GetNumber("cluMode",0);
+	bool cube = (bool) SmartDashboard::GetBoolean("cluDeliverCube",false);
+	autoncommand = new Autonomous(mode, cube);
+	autoncommand->Start();
 }
 
 void Robot::AutonomousPeriodic(){
@@ -74,7 +67,7 @@ void Robot::AutonomousPeriodic(){
 }
 
 void Robot::TeleopInit(){
-	//autoncommand->Cancel();
+	autoncommand->Cancel();
 	drivebase->ResetGyro();
 }
 

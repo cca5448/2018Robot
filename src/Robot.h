@@ -30,9 +30,7 @@ class Robot: public IterativeRobot
 		static Intake * intake;
 
 	private:
-		//LiveWindow * lw;
-		//std::unique_ptr<frc::Command> autoncommand;
-		//frc::SendableChooser<frc::Command *> autonchooser;
+		Command * autoncommand;
 		void RobotInit();
 		void AutonomousInit();
 		void AutonomousPeriodic();
@@ -40,7 +38,6 @@ class Robot: public IterativeRobot
 		void TeleopPeriodic();
 		void TestPeriodic();
 		void DisabledPeriodic();
-		Compressor * Compy;
 };
 
 #endif
