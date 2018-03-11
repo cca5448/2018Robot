@@ -13,10 +13,9 @@ void TeleopTankDrive::Initialize()
 
 void TeleopTankDrive::Execute()
 {
-	//Call DriveTank(double throttle, double steer);
-	Robot::drivebase->DriveTank(Robot::oi->GetThrottleAxis(), Robot::oi->GetSteerAxis());  //drive the wheels with the values returned from OI
+	Robot::drivebase->DriveTankGyro(Robot::oi->GetThrottleAxis(), Robot::oi->GetSteerAxis());  //This uses the new IMU Gyro Correction
+	//Robot::drivebase->DriveTank(Robot::oi->GetThrottleAxis(), Robot::oi->GetSteerAxis());  //This is the old drivetank code
 	//Robot::drivebase->ReturnEncoderDistance(0,0,0);
-	//Robot::drivebase->ReturnGyroAngle();
 }
 
 bool TeleopTankDrive::IsFinished()

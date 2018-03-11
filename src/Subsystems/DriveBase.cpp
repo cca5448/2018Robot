@@ -23,32 +23,67 @@ void DriveBase::InitDefaultCommand()
 
 void DriveBase::DriveTank(double throttle, double steer)
 {
-	//TODO differential throttle based on steer
-	//0 steer is full left
-	//127 steer is neutral (straight)
-	//255 steer is full right
+	float left = throttle - steer;
+	float right = throttle + steer;
+	left = Ceiling(left, 1.0);
+	right = Ceiling(right, 1.0);
 
-	/*  Starting to get code for cheezy drive from team 254.
-	 *  They have java example that could be adapted at
-	 *  https://www.chiefdelphi.com/forums/showthread.php?t=116660&highlight=cheesy+drive
-	 * if (straight) {
-	 *   return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2.0;
-	 * } else {
-     *   return getGyroAngle();
-     * }
-	*/
+	if (++debugPrintLoops > 50 && throttle != 0.0 && steer != 0.0) { //only print output if its not idle
+		debugPrintLoops = 0;
+		//printf("------------------------------\n", throttle);
+		printf("throttle: %f / steer: %f / left: %f / right: %f\n", throttle, steer, left, right);
+	}
 
-	//lf_motor->Set(throttle);
-	//lr_motor->Set(throttle);
-	//rf_motor->Set(-throttle);
-	//rr_motor->Set(-throttle);
+	/* right side motors need to drive negative to move robot forward */
+	lf_motor->Set(ControlMode::PercentOutput, left);
+	lr_motor->Set(ControlMode::PercentOutput, left);
+	rf_motor->Set(ControlMode::PercentOutput, -1. * right);
+	rr_motor->Set(ControlMode::PercentOutput, -1. * right);
+
+}
+
+void DriveBase::DriveTankGyro(double throttle, double steer)
+{
+	//Get data from pigeon IMU, from PigeonStraight sample code
+	PigeonIMU::GeneralStatus genStatus;
+	double xyz_dps[3];
+	pidgey->GetGeneralStatus(genStatus);
+	pidgey->GetRawGyro(xyz_dps);
+	PigeonIMU::FusionStatus *stat = new PigeonIMU::FusionStatus();
+	pidgey->GetFusedHeading(*stat);
+	double currentAngle = stat->heading;
+	bool angleIsGood = (pidgey->GetState() == PigeonIMU::Ready) ? true : false;
+	double currentAngularRate = xyz_dps[2];
+
+	switch (driveStraight)
+	{
+		case gyroCorrectIMU:
+			if (angleIsGood == false) { //Pigeon isnt connected or responding
+				driveStraight = gyroCorrectThrottle;
+			} else {
+				driveStraight = gyroCorrectIMU;
+				driveTargetAngle = currentAngle; //what heading do we want
+			}
+			break;
+		case gyroCorrectThrottle:
+			driveStraight = gyroCorrectThrottle;
+			break;
+	}
+
+	if (steer == 0.0 && driveStraight == gyroCorrectIMU) { //lets use the IMU to drive strait if no steering requested
+		steer = (driveTargetAngle - currentAngle) * kPgain - (currentAngularRate) * kDgain;
+		double maxThrot = MaxCorrection(throttle, kMaxCorrectionRatio);
+		steer = Ceiling(steer, maxThrot);
+	} else if (driveStraight == gyroCorrectThrottle) { //just use the throttle like normal
+		// do nothing to steering
+	}
 
 	float left = throttle - steer;
 	float right = throttle + steer;
 	left = Ceiling(left, 1.0);
 	right = Ceiling(right, 1.0);
 
-	if (++debugPrintLoops > 50 && throttle != 0.0 && steer != 0.0) {
+	if (++debugPrintLoops > 50 && throttle != 0.0 && steer != 0.0) { //only print output if its not idle
 		debugPrintLoops = 0;
 		//printf("------------------------------\n", throttle);
 		printf("throttle: %f / steer: %f / left: %f / right: %f\n", throttle, steer, left, right);
