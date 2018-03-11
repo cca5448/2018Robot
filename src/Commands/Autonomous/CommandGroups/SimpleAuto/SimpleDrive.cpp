@@ -1,8 +1,8 @@
+#include <Commands/Autonomous/CommandGroups/SingleCommands/Drive/AutoDriveBackward.h>
 #include "SimpleDrive.h"
 #include "../SingleCommands/Drive/AutoDriveForward.h"
-#include "../SingleCommands/Drive/AutoDriveBackwards.h"
 
 SimpleDrive::SimpleDrive()
 {
-	AddSequential(new AutoDriveBackwards(93));
+	AddSequential(new AutoDriveBackward(93));
 }
