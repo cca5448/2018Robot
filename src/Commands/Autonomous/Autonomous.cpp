@@ -2,19 +2,19 @@
 #include "Robot.h"
 //#include "CommandGroups/SimpleAuto.h"
 
+//drive
 #include "CommandGroups/SingleCommands/Drive/AutoDriveBackward.h"
 #include "CommandGroups/SingleCommands/Drive/AutoDriveForward.h"
 #include "CommandGroups/SingleCommands/Drive/AutoDriveTurnLeft.h"
 #include "CommandGroups/SingleCommands/Drive/AutoDriveTurnRight.h"
 #include "CommandGroups/SingleCommands/Drive/AutoResetEncoder.h"
-//#include "CommandGroups/Turn.h"
-//#include "CommandGroups/StartShooter.h"
-//#include "CommandGroups/Aim.h"
-//#include "CommandGroups/FeedFuel.h"
-
+//shooter
+#include "CommandGroups/SingleCommands/Shooter/AutoAdvanceShooter.h"
+#include "CommandGroups/SingleCommands/Shooter/AutoAdvanceShooterStop.h"
+#include "CommandGroups/SingleCommands/Shooter/AutoStartShooter.h"
+#include "CommandGroups/SingleCommands/Shooter/AutoStopShooter.h"
+//finish
 #include "CommandGroups/FinishAuto.h"
-
-//#include "CommandGroups/DriveToGear.h"
 
 Autonomous::Autonomous(int mode, bool cube)
 {
@@ -63,8 +63,13 @@ Autonomous::Autonomous(int mode, bool cube)
 			}
 			if (deliverCube) {
 				printf("CLU: Delivering a cube!\n");
-				//AddSequential(new AutoShooterStart());
-				//AddSequential(new AutoShooterAdvance());
+				AddParallel(new AutoStartShooter());
+				AddSequential(new AutoAdvanceShooter());
+/*				//Wait 10s and then stop the shooter
+				AddSequential(new AutoShooterWait());
+				AddParallel(new AutoStopShooter(10));
+				AddSequential(new AutoAdvanceShooterStop());
+*/
 			}
 			break;
 		case 3: //center start, drive forward to proper side, deliver cube
@@ -85,8 +90,13 @@ Autonomous::Autonomous(int mode, bool cube)
 			}
 			if (deliverCube) {
 				printf("CLU: Delivering a Cube!\n");
-				//AddSequential(new AutoShooterStart());
-				//AddSequential(new AutoShooterAdvance());
+				AddParallel(new AutoStartShooter());
+				AddSequential(new AutoAdvanceShooter());
+/*				//Wait 10s and then stop the shooter
+				AddSequential(new AutoShooterWait());
+				AddParallel(new AutoStopShooter(10));
+				AddSequential(new AutoAdvanceShooterStop());
+*/
 			}
 			break;
 		case 4: //right start, drive forward to baseline, turn left
@@ -102,8 +112,14 @@ Autonomous::Autonomous(int mode, bool cube)
 			}
 			if (deliverCube) {
 				printf("CLU: Delivering a cube!\n");
-				//AddSequential(new AutoShooterStart());
-				//AddSequential(new AutoShooterAdvance());
+				AddParallel(new AutoStartShooter());
+				AddSequential(new AutoAdvanceShooter());
+/*				//Wait 10s and then stop the shooter
+				AddSequential(new AutoShooterWait());
+				AddParallel(new AutoStopShooter(10));
+				AddSequential(new AutoAdvanceShooterStop());
+*/
+
 			}
 			break;
 		case 5: //drive backward to baseline
