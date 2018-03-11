@@ -106,14 +106,14 @@ double DriveBase::Ceiling(double value, double peak)
 	return value;
 }
 
-float DriveBase::ReturnEncoderDistance(float e1, float e2, float distance)
+float DriveBase::ReturnEncoderDistance()
 {
 	lf_motor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
 	rf_motor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
 
-	e1 = lf_motor->GetSelectedSensorPosition(0) * -1; //sets e1 to left value
-	e2 = rf_motor->GetSelectedSensorPosition(0) * 1; //sets e2 to right value
-	distance = e1;  //set distance to e1
+	float e1 = lf_motor->GetSelectedSensorPosition(0) * -1; //sets e1 to left value
+	float e2 = rf_motor->GetSelectedSensorPosition(0) * 1; //sets e2 to right value
+	float distance = e1;  //set distance to e1
 	distance += e2; //add e2 encoder value
 	distance /= 2; //divide by 2 to get the average
 	return distance;

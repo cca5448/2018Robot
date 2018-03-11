@@ -24,7 +24,7 @@ class DriveBase: public Subsystem
 		void InitDefaultCommand();
 		void DriveTank(double left_speed, double right_speed); //drives the robot
 		void DriveTankGyro(double left_speed, double right_speed); //drives the robot with Gyro correction
-		float ReturnEncoderDistance(float e1, float e2, float distance); //returns the distance
+		float ReturnEncoderDistance(); //returns the distance
 		float ConvertInchesToEncoder(float inches); //converts inches to encoder distance
 		float ConvertEncoderToInches(float encUnits); //converts encoder distance to inches
 		void ResetEncoderPosition(); //resets encoders
