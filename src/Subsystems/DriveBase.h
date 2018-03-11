@@ -30,6 +30,7 @@ class DriveBase: public Subsystem
 		float ReturnGyroAngle(); //returns the angle
 		void ResetGyro(); //resets the gyro
 		void CalibrateGyro(); //calibrates the gyro while robot is idle
+		void DisplayGyro(); //update the smartdashboard hdng with the gyro value
 		double Ceiling(double value, double peak); //Returns the peak value if value is higher
 		double MaxCorrection(double throttle, double scalor);
 };

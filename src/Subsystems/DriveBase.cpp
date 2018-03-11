@@ -126,6 +126,12 @@ void DriveBase::ResetGyro()
 	//SmartDashboard::PutNumber("Gyro Resets", rval);
 }
 
+void DriveBase::DisplayGyro()
+{
+	double heading = pidgey->GetFusedHeading();
+	SmartDashboard::PutNumber("hdng", heading);  //put the heading into the gyro item
+}
+
 void DriveBase::CalibrateGyro()
 {
 	//int cval;

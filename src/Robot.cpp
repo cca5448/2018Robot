@@ -47,12 +47,13 @@ void Robot::RobotInit(){
 //	autoncommand = (Command *) autonchooser->GetSelected();
 //	int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
 //	autoncommand = new Autonomous(mode);
-	drivebase->CalibrateGyro();
+	//drivebase->ResetGyro();
 	drivebase->ResetEncoderPosition();
 
 }
 
 void Robot::AutonomousInit(){
+	drivebase->ResetGyro();
 	drivebase->ResetEncoderPosition();
 	//int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
 	//autoncommand = new Autonomous(mode);
@@ -69,6 +70,7 @@ void Robot::AutonomousInit(){
 
 void Robot::AutonomousPeriodic(){
 	Scheduler::GetInstance()->Run(); //continually run the scheduler during auton
+	drivebase->DisplayGyro();
 }
 
 void Robot::TeleopInit(){
@@ -78,6 +80,7 @@ void Robot::TeleopInit(){
 
 void Robot::TeleopPeriodic(){
 	Scheduler::GetInstance()->Run(); //continually run the scheduler during teleop
+	drivebase->DisplayGyro();
 }
 
 void Robot::TestPeriodic(){
