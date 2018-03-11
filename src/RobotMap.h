@@ -32,12 +32,11 @@ const unsigned short MOT_INTAKE_R		= 2; //Right Intake
 const unsigned short MOT_CLIMB			= 4; //PWM Pin for Climber
 
 //default motor speeds
-const unsigned short MOT_INTAKE_SPEED_DEF = 0.5; //Speed of Intake motors
-const unsigned short MOT_LOAD_BELT_SPEED_DEF = 1.0; //Speed of load belt
-const unsigned short MOT_SHOOTER_SPEED_HIGH_DEF = 0.5; //Speed of shooter in high
-const unsigned short MOT_SHOOTER_SPEED_LOW_DEF 	= 0.25; //Speed of shooter in low
-const unsigned short MOT_CLIMB_SPEED_DEF		= 1.0; //Speed of Climber
-
+const float MOT_INTAKE_SPEED_DEF		= 0.5; //Speed of Intake motors
+const float MOT_LOAD_BELT_SPEED_DEF		= 1.0; //Speed of load belt
+const float MOT_SHOOTER_SPEED_HIGH_DEF	= 1.0; //Speed of shooter in high
+const float MOT_SHOOTER_SPEED_LOW_DEF	= 0.65; //Speed of shooter in low
+const float MOT_CLIMB_SPEED_DEF			= 1.0; //Speed of Climber
 
 //Joysticks
 const unsigned short JOY_DRIVE_THROT	= 0; //USB Port Driver Joystick left (throttle)

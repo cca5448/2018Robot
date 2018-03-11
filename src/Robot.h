@@ -31,8 +31,8 @@ class Robot: public IterativeRobot
 
 	private:
 		//LiveWindow * lw;
-		std::unique_ptr<frc::Command> autoncommand;
-		frc::SendableChooser<frc::Command *> autonchooser;
+		//std::unique_ptr<frc::Command> autoncommand;
+		//frc::SendableChooser<frc::Command *> autonchooser;
 		void RobotInit();
 		void AutonomousInit();
 		void AutonomousPeriodic();
@@ -40,6 +40,7 @@ class Robot: public IterativeRobot
 		void TeleopPeriodic();
 		void TestPeriodic();
 		void DisabledPeriodic();
+		Compressor * Compy;
 };
 
 #endif

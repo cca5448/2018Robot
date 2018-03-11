@@ -14,6 +14,8 @@ class Shooter: public Subsystem
 		Shooter();
 		void InitDefaultCommand();
 		bool StartShooter(float speed); //turn on the shooter and return true after delay
+		void StartShooterHigh(); //turn the shooter on the high position
+		void StartShooterLow(); //turn the shooter on the low position
 		void StopShooter(); //turn off the shooter
 		void AdvanceShooter(); //run the lift belts to advance the cube into the shooter
 		float GetShooterSpeed(); //get the shooter wheel speed

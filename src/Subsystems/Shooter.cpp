@@ -38,6 +38,30 @@ bool Shooter::StartShooter(float speed)
 	return true;  //return true when shooter has started
 }
 
+void Shooter::StartShooterHigh()
+{
+	float left = MOT_SHOOTER_SPEED_HIGH_DEF;
+	float right = MOT_SHOOTER_SPEED_HIGH_DEF;
+	left = Ceiling(left, 1.0);
+	right = Ceiling(right, 1.0);
+
+	printf("Shooter is high, start at speed %f\n", MOT_SHOOTER_SPEED_HIGH_DEF);
+	shooter_motor_left->Set(ControlMode::PercentOutput, left);
+	shooter_motor_right->Set(ControlMode::PercentOutput, -1. * right);
+}
+
+void Shooter::StartShooterLow()
+{
+	float left = MOT_SHOOTER_SPEED_LOW_DEF;
+	float right = MOT_SHOOTER_SPEED_LOW_DEF;
+	left = Ceiling(left, 1.0);
+	right = Ceiling(right, 1.0);
+
+	printf("Shooter is low, start at speed %f\n", MOT_SHOOTER_SPEED_LOW_DEF);
+	shooter_motor_left->Set(ControlMode::PercentOutput, left);
+	shooter_motor_right->Set(ControlMode::PercentOutput, -1. * right);
+}
+
 void Shooter::StopShooter()
 {
 	//SmartDashboard::PutBoolean(SDB_SHOOTER_LED_ID,false);

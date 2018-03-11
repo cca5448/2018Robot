@@ -48,7 +48,7 @@ void DriveBase::DriveTank(double throttle, double steer)
 	left = Ceiling(left, 1.0);
 	right = Ceiling(right, 1.0);
 
-	if (++debugPrintLoops > 30) {
+	if (++debugPrintLoops > 50 && throttle != 0.0 && steer != 0.0) {
 		debugPrintLoops = 0;
 		//printf("------------------------------\n", throttle);
 		printf("throttle: %f / steer: %f / left: %f / right: %f\n", throttle, steer, left, right);

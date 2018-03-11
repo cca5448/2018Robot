@@ -1,10 +1,10 @@
 #include <math.h>
 #include "OI.h"
 #include "RobotMap.h"
-#include "Commands/Climber/StartClimberUp.h"
-#include "Commands/Climber/StartClimberDown.h"
-#include "Commands/Climber/StopClimber.h"
-#include "Commands/Vision/CameraToggle.h"
+//#include "Commands/Climber/StartClimberUp.h"
+//#include "Commands/Climber/StartClimberDown.h"
+//#include "Commands/Climber/StopClimber.h"
+//#include "Commands/Vision/CameraToggle.h"
 //#include "Commands/Air/LowerShooter.h"
 //#include "Commands/Air/RaiseShooter.h"
 #include "Commands/Air/ToggleShooter.h"
@@ -95,7 +95,7 @@ OI::OI()
 	driver_stick_throttle = new Joystick(JOY_DRIVE_THROT);
 	driver_stick_steer = new Joystick(JOY_DRIVE_STEER);
 	r_buttons = new Joystick(JOY_OPER);
-	l_buttons = new Joystick(JOY_DRIVE_THROT);
+	l_buttons = new Joystick(JOY_OTHER);
 
 	//left button definitions
 	//intake_in_btn = new JoystickButton(l_buttons,BTN_INTAKE_IN);
@@ -122,7 +122,7 @@ OI::OI()
 	//climber buttons
 	//climber_up->ToggleWhenPressed(new StartClimberUp());
 	//climber_down->ToggleWhenPressed(new StartClimberDown());
-	climber_stop->ToggleWhenPressed(new StopClimber());
+	//climber_stop->ToggleWhenPressed(new StopClimber());
 
 	//shooter button actions
 	shooter_toggle_btn->WhenPressed(new ToggleShooter());

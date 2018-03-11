@@ -26,7 +26,7 @@ void Robot::RobotInit(){
 	shooter = new Shooter();
 	intake = new Intake();
 
-
+/*
 	//setup auton drop downs
 	//autonchooser = new SendableChooser();
 	autonchooser.AddDefault("Do Nothing",new Autonomous(0));
@@ -35,10 +35,15 @@ void Robot::RobotInit(){
 	autonchooser.AddObject("Straight back gear deliver",new Autonomous(3));
 	autonchooser.AddObject("Right back turn right gear deliver",new Autonomous(4));
 	SmartDashboard::PutData("Auto Selector", &autonchooser);
+*/
 
+/*
+	Compy = new Compressor(0);
+	Compy->SetClosedLoopControl(true);
+	Compy->Start();
+*/
 
 	//other stuff
-	//lw = LiveWindow::GetInstance();
 //	autoncommand = (Command *) autonchooser->GetSelected();
 //	int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
 //	autoncommand = new Autonomous(mode);
@@ -52,10 +57,14 @@ void Robot::AutonomousInit(){
 	//int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
 	//autoncommand = new Autonomous(mode);
 	//autoncommand->Start();
+
+	//chooser
+/*
 	autoncommand.reset(autonchooser.GetSelected());
 	if(autoncommand.get() != nullptr) {
 		autoncommand->Start();
 	}
+*/
 }
 
 void Robot::AutonomousPeriodic(){
@@ -63,7 +72,7 @@ void Robot::AutonomousPeriodic(){
 }
 
 void Robot::TeleopInit(){
-	autoncommand->Cancel();
+	//autoncommand->Cancel();
 	drivebase->ResetGyro();
 }
 

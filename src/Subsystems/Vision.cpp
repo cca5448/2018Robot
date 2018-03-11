@@ -8,7 +8,7 @@
 
 Vision::Vision() : Subsystem("Vision")
 {
-	CameraServer::GetInstance()->StartAutomaticCapture();
+	//CameraServer::GetInstance()->StartAutomaticCapture();
 	CameraServer::GetInstance()->AddAxisCamera("Shooter Cam","10.54.48.10");
 	CameraServer::GetInstance()->AddAxisCamera("Drive Cam","10.54.48.11");
 /*

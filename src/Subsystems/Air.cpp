@@ -7,10 +7,10 @@
 Air::Air() : Subsystem("Air")
 {
 	Compy = new Compressor(0);
-
-	//Start();
 	Compy->SetClosedLoopControl(true);
 	//Compy->SetClosedLoopControl(false);
+
+	//Start();
 }
 
 void Air::InitDefaultCommand()
@@ -44,12 +44,12 @@ double Air::GetCompressorCurrent()
 void Air::ShooterUp(bool IsUp)
 {
 	Solenoid shooterSolenoid {SOL_SHOOTER_UP};
-	shooterSolenoid.Set(IsUp);
+	shooterSolenoid.Set(!IsUp);
 }
 
 bool Air::IsShooterUp()
 {
 	Solenoid shooterSolenoid {SOL_SHOOTER_UP};
-	bool up = shooterSolenoid.Get();
+	bool up = !shooterSolenoid.Get();
 	return up;
 }

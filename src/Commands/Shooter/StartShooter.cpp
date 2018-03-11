@@ -4,17 +4,22 @@
 StartShooter::StartShooter()
 {
 	Requires(Robot::shooter); //requires the shooter subsystem
+	Requires(Robot::air); //requires the air subsystem
 }
 
 void StartShooter::Initialize()
 {
-	SmartDashboard::PutString("Shooter Running","inittrue");
+	//SmartDashboard::PutString("Shooter Running","inittrue");
 }
 
 void StartShooter::Execute()
 {
-	Robot::shooter->StartShooter(.5);
-	SmartDashboard::PutString("Shooter Running","true");
+	if (Robot::air->IsShooterUp())
+	{
+		Robot::shooter->StartShooterHigh();
+	} else {
+		Robot::shooter->StartShooterLow();
+	}
 	frc::Wait(1);
 }
 

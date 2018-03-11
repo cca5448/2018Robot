@@ -37,12 +37,12 @@ void Intake::IntakeStop()
 
 void Intake::LoadBeltIn()
 {
-	load_belt_motor->Set(MOT_LOAD_BELT_SPEED_DEF);
+	load_belt_motor->Set(-MOT_LOAD_BELT_SPEED_DEF);
 }
 
 void Intake::LoadBeltOut()
 {
-	load_belt_motor->Set(-MOT_LOAD_BELT_SPEED_DEF);
+	load_belt_motor->Set(MOT_LOAD_BELT_SPEED_DEF);
 }
 
 void Intake::LoadBeltStop()
