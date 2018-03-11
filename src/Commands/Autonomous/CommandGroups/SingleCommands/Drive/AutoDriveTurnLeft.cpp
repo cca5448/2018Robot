@@ -4,8 +4,9 @@
 
 AutoDriveTurnLeft::AutoDriveTurnLeft(float angle)
 {
-	m_TARGET_ANGLE = angle;
 	Requires(Robot::drivebase);
+	printf("Auto Drive Turn Left - to %f degrees\n", angle);
+	m_TARGET_ANGLE = angle;
 }
 
 void AutoDriveTurnLeft::Initialize()
@@ -15,7 +16,7 @@ void AutoDriveTurnLeft::Initialize()
 
 void AutoDriveTurnLeft::Execute()
 {
-	Robot::drivebase->DriveTank(-AUTON_DRIVE_SPEED,AUTON_DRIVE_SPEED);
+	Robot::drivebase->DriveTank(0,AUTON_TURN_SPEED);
 }
 
 bool AutoDriveTurnLeft::IsFinished()

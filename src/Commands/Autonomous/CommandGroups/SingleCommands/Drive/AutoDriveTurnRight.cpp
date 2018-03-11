@@ -4,8 +4,9 @@
 
 AutoDriveTurnRight::AutoDriveTurnRight(float angle)
 {
-	m_TARGET_ANGLE = angle;
 	Requires(Robot::drivebase);
+	printf("Auto Drive Turn Left - to %f degrees\n", angle);
+	m_TARGET_ANGLE = angle;
 }
 
 void AutoDriveTurnRight::Initialize()

@@ -5,8 +5,8 @@
 AutoDriveBackward::AutoDriveBackward(int distance)
 {
 	Requires(Robot::drivebase);
+	printf("Auto Drive Backward - %f inches\n", distance);
 	m_TARGET_DISTANCE = Robot::drivebase->ConvertInchesToEncoder(distance);
-	SmartDashboard::PutString("ADR",std::to_string(m_TARGET_DISTANCE));
 }
 
 void AutoDriveBackward::Initialize()
