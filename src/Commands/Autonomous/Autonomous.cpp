@@ -56,7 +56,7 @@ Autonomous::Autonomous(int mode)
 				printf("CLU: Turning right to goto switch.")
 				AddSequential(new AutoDriveTurnRight(90));
 				AddSequential(new AutoResetEncoder());
-				AddSequential(new AutoDriveForward(24));
+				AddSequential(new AutoDriveForward(24));  //could use ultrasonic sensor here!
 			} else {
 				printf("CLU: The switch is too far away for me to reach!");
 			}
@@ -74,13 +74,13 @@ Autonomous::Autonomous(int mode)
 				AddSequential(new AutoDriveTurnLeft(45)); //turn left
 				AddSequential(new AutoDriveForward(72)); //drive forward to be in front of the switch
 				AddSequential(new AutoDriveTurnRight(45)); //turn towards the switch
-				AddSequential(new AutoDriveForward(20)); //drive forward to fence
+				AddSequential(new AutoDriveForward(20)); //drive forward to fenc. could use ultrasonic sensor here!
 			} else { //switch is on the right, turn right then left
 				printf("CLU: going to right side of switch\n");
 				AddSequential(new AutoDriveTurnRight(45)); //turn right
-				AddSequential(new AutoDriveForward(72));
-				AddSequential(new AutoDriveTurnLeft(45));
-				AddSequential(new AutoDriveForward(20));
+				AddSequential(new AutoDriveForward(72)); //drive forward to be in front of the switch
+				AddSequential(new AutoDriveTurnLeft(45)); //turn towards the switch
+				AddSequential(new AutoDriveForward(20)); //drive forward to fence. could use ultrasonic sensor here!
 			}
 			if (deliverCube) {
 				printf("CLU: Delivering a Cube!\n");
@@ -95,7 +95,7 @@ Autonomous::Autonomous(int mode)
 				printf("CLU: Turning left to goto switch.")
 				AddSequential(new AutoDriveTurnLeft(90));
 				AddSequential(new AutoResetEncoder());
-				AddSequential(new AutoDriveForward(24));
+				AddSequential(new AutoDriveForward(24)); //could use ultrasonic sensor here!
 			} else {
 				printf("CLU: The switch is too far away for me to reach!");
 			}
@@ -111,6 +111,7 @@ Autonomous::Autonomous(int mode)
 			break;
 		default: //do nothing
 			SmartDashboard::PutString("Auton","Do Nothing (default)");
+			printf("CLU: I am unsure what to do!");
 			break;
 	}
 
