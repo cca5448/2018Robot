@@ -22,7 +22,12 @@ void AutoDriveBackward::Execute()
 
 bool AutoDriveBackward::IsFinished()
 {
-	return (Robot::drivebase->ReturnEncoderDistance(0,0,0) <= -m_TARGET_DISTANCE);
+	if (Robot::drivebase->ReturnEncoderDistance() <= -m_TARGET_DISTANCE) { //going negative
+		return true;
+	} else if (Robot::drivebase->ReturnEncoderDistance() >= m_TARGET_DISTANCE) { //going positive
+		return true;
+	}
+	return false;
 }
 
 void AutoDriveBackward::End()
