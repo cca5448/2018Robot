@@ -21,7 +21,10 @@ void AutoDriveTurnRight::Execute()
 
 bool AutoDriveTurnRight::IsFinished()
 {
-	if (!Robot::drivebase->IsGyroGood()) return true;  //if gyro is bad, finish now to prevent spin of death!
+	if (!Robot::drivebase->IsGyroGood()) {
+		printf("AutoDriveTurnRight ended early because IsGyroGood == false\n");
+		return true;  //if gyro is bad, finish now to prevent spin of death!
+	}
 	return (Robot::drivebase->ReturnGyroAngle() >= m_TARGET_ANGLE); //until we reach the target angle
 }
 
