@@ -29,6 +29,7 @@ class DriveBase: public Subsystem
 		float ConvertEncoderToInches(float encUnits); //converts encoder distance to inches
 		void ResetEncoderPosition(); //resets encoders
 		float ReturnGyroAngle(); //returns the angle
+		bool IsGyroGood(); //true if IMU ready, false if not
 		void ResetGyro(); //resets the gyro
 		void CalibrateGyro(); //calibrates the gyro while robot is idle
 		void DisplayGyro(); //update the smartdashboard hdng with the gyro value

@@ -86,7 +86,7 @@ void DriveBase::DriveTankGyro(double throttle, double steer)
 	if (++debugPrintLoops > 50 && throttle != 0.0 && steer != 0.0) { //only print output if its not idle
 		debugPrintLoops = 0;
 		//printf("------------------------------\n", throttle);
-		printf("throttle: %f / steer: %f / left: %f / right: %f / angle: %f\n", throttle, steer, left, right, currentAngle);
+		printf("throttle: %f / steer: %f / left: %f / right: %f / angle: %f / rate: %f\n", throttle, steer, left, right, currentAngle, currentAngularRate);
 	}
 
 	/* right side motors need to drive negative to move robot forward */
@@ -165,7 +165,7 @@ void DriveBase::ResetGyro()
 	pidgey->SetFusedHeading(0.0, 10); /* reset heading, angle measurement wraps at plus/minus 23,040 degrees (64 rotations) */
 	driveStraight = gyroCorrectIMU;
 
-	printf("Gyro has been reset\n");
+	printf("Gyro reset to 0.0\n");
 	//SmartDashboard::PutNumber("Gyro Resets", rval);
 }
 
@@ -173,6 +173,14 @@ void DriveBase::DisplayGyro()
 {
 	double heading = pidgey->GetFusedHeading();
 	SmartDashboard::PutNumber("hdng", heading);  //put the heading into the gyro item
+}
+
+bool DriveBase::IsGyroGood()
+{
+	PigeonIMU::GeneralStatus genStatus;
+	pidgey->GetGeneralStatus(genStatus);
+	bool IMUReady = (pidgey->GetState() == PigeonIMU::Ready) ? true : false;
+	return IMUReady;
 }
 
 void DriveBase::CalibrateGyro()
