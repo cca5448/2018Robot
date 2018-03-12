@@ -16,12 +16,13 @@ void AutoDriveTurnLeft::Initialize()
 
 void AutoDriveTurnLeft::Execute()
 {
-	Robot::drivebase->DriveTank(0,AUTON_TURN_SPEED);
+	Robot::drivebase->DriveTank(0.0,-AUTON_TURN_SPEED);
 }
 
 bool AutoDriveTurnLeft::IsFinished()
 {
-	return (Robot::drivebase->ReturnGyroAngle() <= -m_TARGET_ANGLE);
+	if (!Robot::drivebase->IsGyroGood()) return true;  //if gyro is bad, finish now to prevent spin of death!
+	return (Robot::drivebase->ReturnGyroAngle() <= -m_TARGET_ANGLE); //until we reach the target angle
 }
 
 void AutoDriveTurnLeft::End()
