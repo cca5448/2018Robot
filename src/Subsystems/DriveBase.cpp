@@ -86,7 +86,7 @@ void DriveBase::DriveTankGyro(double throttle, double steer)
 	if (++debugPrintLoops > 50 && throttle != 0.0 && steer != 0.0) { //only print output if its not idle
 		debugPrintLoops = 0;
 		//printf("------------------------------\n", throttle);
-		printf("throttle: %f / steer: %f / left: %f / right: %f\n", throttle, steer, left, right);
+		printf("throttle: %f / steer: %f / left: %f / right: %f / angle: %f\n", throttle, steer, left, right, currentAngle);
 	}
 
 	/* right side motors need to drive negative to move robot forward */
@@ -139,8 +139,24 @@ void DriveBase::ResetEncoderPosition()
 
 float DriveBase::ReturnGyroAngle()
 {
-	//SmartDashboard::PutNumber("Gyro Angle", drive_gyro->GetAngle());
-	//return drive_gyro->GetAngle(); //0 to 1.1?
+	PigeonIMU::GeneralStatus genStatus;
+	double xyz_dps[3];
+	pidgey->GetGeneralStatus(genStatus);
+	pidgey->GetRawGyro(xyz_dps);
+	PigeonIMU::FusionStatus *stat = new PigeonIMU::FusionStatus();
+	pidgey->GetFusedHeading(*stat);
+	double currentAngle = stat->heading;
+	bool angleIsGood = (pidgey->GetState() == PigeonIMU::Ready) ? true : false;
+	double currentAngularRate = xyz_dps[2];
+
+	if (angleIsGood == false) { //Pigeon isnt connected or responding
+		printf("Gyro is not responding!\n");
+		return 0.0;
+	} else {
+		//printf("Gyro current angle: %f\n");
+		return currentAngle;
+	}
+
 	return 0.0;
 }
 
