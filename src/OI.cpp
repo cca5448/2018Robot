@@ -8,10 +8,6 @@
 //#include "Commands/Air/LowerShooter.h"
 //#include "Commands/Air/RaiseShooter.h"
 #include "Commands/Air/ToggleShooter.h"
-#include "Commands/Shooter/StartShooter.h"
-#include "Commands/Shooter/StopShooter.h"
-#include "Commands/Shooter/AdvanceShooter.h"
-#include "Commands/Shooter/AdvanceShooterStop.h"
 
 float DeadZone(float axisVal)
 {
@@ -126,10 +122,6 @@ OI::OI()
 
 	//shooter button actions
 	shooter_toggle_btn->WhenPressed(new ToggleShooter());
-	shooter_stop_btn->WhenPressed(new StopShooter());
-	shooter_start_btn->WhenPressed(new StartShooter());
-	shooter_adv_btn->WhenPressed(new AdvanceShooter());
-	shooter_adv_btn->WhenReleased(new AdvanceShooterStop());
 }
 
 //method will return the drive throttle axis

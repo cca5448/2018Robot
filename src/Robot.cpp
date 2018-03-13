@@ -1,30 +1,21 @@
 #include "WPILib.h"
-//#include <SmartDashboard/SendableChooser.h>
 #include "Robot.h"
 
-#include "Commands/Autonomous/Autonomous.h"
+//#include "Commands/Autonomous/Autonomous.h"
 
 //Set all the subsystems to null
 OI * Robot::oi = NULL;
-Climber * Robot::climber = NULL;
 DriveBase * Robot::drivebase = NULL;
 Vision * Robot::vision = NULL;
 Air * Robot::air = NULL;
-Setup * Robot::setup = NULL;
-Shooter * Robot::shooter = NULL;
-Intake * Robot::intake = NULL;
 
 void Robot::RobotInit(){
 
 	//Create new objects of subsystems
 	oi = new OI();
-	climber = new Climber();
 	drivebase = new DriveBase();
 	vision = new Vision();
 	air = new Air();
-	setup = new Setup();
-	shooter = new Shooter();
-	intake = new Intake();
 
 /*
 	//setup auton drop downs
