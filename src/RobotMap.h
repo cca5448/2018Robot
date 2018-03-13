@@ -9,8 +9,8 @@
 //Robot Constants for decision making
 static const float GYRO_KP = 0.03;
 const unsigned short AUTON_MODE_MAX = 3;
-const float AUTON_DRIVE_SPEED = 0.25; //speed to drive in auton mode
-const float AUTON_TURN_SPEED = 0.25;
+const float AUTON_DRIVE_SPEED = 0.50; //speed to drive in auton mode
+const float AUTON_TURN_SPEED = 0.35;
 const float JOYSTICK_DEADZONE = 0.25; //dead zone
 const float JOYSTICK_RAMP_POWER = 1.1; //speed ramp power - this is for proportionalAxis
 

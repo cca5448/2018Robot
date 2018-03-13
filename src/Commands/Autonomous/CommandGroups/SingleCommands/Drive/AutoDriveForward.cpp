@@ -5,7 +5,7 @@
 AutoDriveForward::AutoDriveForward(int distance)
 {
 	Requires(Robot::drivebase);
-	SmartDashboard::PutString("ADF",std::to_string(distance));
+	printf("Auto Drive Forward - %d inches\n", distance);
 	m_TARGET_DISTANCE = Robot::drivebase->ConvertInchesToEncoder(distance);
 }
 
@@ -14,11 +14,18 @@ void AutoDriveForward::Initialize(){
 }
 
 void AutoDriveForward::Execute(){
-	Robot::drivebase->DriveTank(AUTON_DRIVE_SPEED,AUTON_DRIVE_SPEED);
+	Robot::drivebase->DriveTankGyro(AUTON_DRIVE_SPEED,0);
 }
 
 bool AutoDriveForward::IsFinished(){
-	return (Robot::drivebase->ReturnEncoderDistance(0,0,0) >= m_TARGET_DISTANCE);
+	float distanceTraveled = Robot::drivebase->ReturnEncoderDistance();
+	//printf("distance: %f\n", distanceTraveled);
+	if (distanceTraveled <= -m_TARGET_DISTANCE) { //going negative
+		return true;
+	} else if (distanceTraveled >= m_TARGET_DISTANCE) { //going positive
+		return true;
+	}
+	return false;
 }
 
 void AutoDriveForward::End(){

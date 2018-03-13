@@ -5,7 +5,6 @@
 #include <ctre/Phoenix.h>
 
 #include "OI.h"
-//#include "Subsystems/Aimer.h"
 #include "Subsystems/DriveBase.h"
 #include "Subsystems/Vision.h"
 #include "Subsystems/Air.h"
@@ -21,8 +20,8 @@ class Robot: public IterativeRobot
 
 	private:
 		//LiveWindow * lw;
-		//std::unique_ptr<frc::Command> autoncommand;
-		//frc::SendableChooser<frc::Command *> autonchooser;
+		Command *  autoncommand;
+		Compressor * Compy;
 		void RobotInit();
 		void AutonomousInit();
 		void AutonomousPeriodic();
@@ -30,7 +29,6 @@ class Robot: public IterativeRobot
 		void TeleopPeriodic();
 		void TestPeriodic();
 		void DisabledPeriodic();
-		Compressor * Compy;
 };
 
 #endif

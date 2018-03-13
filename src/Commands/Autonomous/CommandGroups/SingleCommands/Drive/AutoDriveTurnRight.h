@@ -9,7 +9,7 @@ class AutoDriveTurnRight: public Command
 	private:
 		float m_TARGET_ANGLE;
 	public:
-		AutoDriveTurnRight(float angle);
+		AutoDriveTurnRight(float degrees);
 		void Initialize();
 		void Execute();
 		bool IsFinished();

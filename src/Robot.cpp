@@ -1,7 +1,7 @@
 #include "WPILib.h"
 #include "Robot.h"
 
-//#include "Commands/Autonomous/Autonomous.h"
+#include "Commands/Autonomous/Autonomous.h"
 
 //Set all the subsystems to null
 OI * Robot::oi = NULL;
@@ -46,17 +46,15 @@ void Robot::RobotInit(){
 void Robot::AutonomousInit(){
 	drivebase->ResetGyro();
 	drivebase->ResetEncoderPosition();
-	//int mode = (int) SmartDashboard::GetNumber("DB/Slider 3",0);
-	//autoncommand = new Autonomous(mode);
-	//autoncommand->Start();
-
-	//chooser
-/*
-	autoncommand.reset(autonchooser.GetSelected());
-	if(autoncommand.get() != nullptr) {
-		autoncommand->Start();
-	}
-*/
+	int mode = (int) SmartDashboard::GetNumber("cluMode",0);
+	bool cube = (bool) SmartDashboard::GetBoolean("cluDeliverCube",false);
+	//temp set values
+	mode=6;
+	cube=true;
+	//end temp values
+	printf("AutonomousInit: mode %d, cube %s\n", mode, cube ? "true":"false");
+	autoncommand = new Autonomous(mode, cube);
+	autoncommand->Start();
 }
 
 void Robot::AutonomousPeriodic(){

@@ -2,10 +2,11 @@
 #include "Robot.h"
 #include "RobotMap.h"
 
-AutoDriveTurnLeft::AutoDriveTurnLeft(float angle)
+AutoDriveTurnLeft::AutoDriveTurnLeft(float degrees)
 {
-	m_TARGET_ANGLE = angle;
 	Requires(Robot::drivebase);
+	printf("Auto Drive Turn Left %f degrees\n", degrees);
+	m_TARGET_ANGLE = degrees;
 }
 
 void AutoDriveTurnLeft::Initialize()
@@ -15,12 +16,17 @@ void AutoDriveTurnLeft::Initialize()
 
 void AutoDriveTurnLeft::Execute()
 {
-	Robot::drivebase->DriveTank(-AUTON_DRIVE_SPEED,AUTON_DRIVE_SPEED);
+	Robot::drivebase->DriveTank(0,AUTON_TURN_SPEED);
 }
 
 bool AutoDriveTurnLeft::IsFinished()
 {
-	return (Robot::drivebase->ReturnGyroAngle() <= -m_TARGET_ANGLE);
+	if (!Robot::drivebase->IsGyroGood()) {
+		printf("AutoDriveTurnLeft ended early because IsGyroGood == false\n");
+		return true;  //if gyro is bad, finish now to prevent spin of death!
+	}
+	//printf("Gyro: %f\n",Robot::drivebase->ReturnGyroAngle());
+	return (Robot::drivebase->ReturnGyroAngle() >= m_TARGET_ANGLE); //until we reach the target angle
 }
 
 void AutoDriveTurnLeft::End()

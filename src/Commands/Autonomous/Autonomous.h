@@ -8,8 +8,9 @@ class Autonomous: public CommandGroup
 {
 	private:
 		int m_AUTON_MODE;
+		bool m_CUBE;
 	public:
-		Autonomous(int mode);
+		Autonomous(int mode, bool cube);
 };
 
 #endif

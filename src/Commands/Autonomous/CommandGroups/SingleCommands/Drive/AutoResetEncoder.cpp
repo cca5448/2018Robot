@@ -16,6 +16,7 @@ void AutoResetEncoder::Execute(){
 }
 
 bool AutoResetEncoder::IsFinished(){
+	frc::Wait(0.5);
 	return true;
 }
 
