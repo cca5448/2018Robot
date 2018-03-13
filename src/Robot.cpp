@@ -46,13 +46,13 @@ void Robot::RobotInit(){
 void Robot::AutonomousInit(){
 	drivebase->ResetGyro();
 	drivebase->ResetEncoderPosition();
-	int mode = (int) SmartDashboard::GetNumber("cluMode",0);
+	double mode = SmartDashboard::GetNumber("cluMode",0.0);
 	bool cube = (bool) SmartDashboard::GetBoolean("cluDeliverCube",false);
 	//temp set values
 	//mode=6;
 	//cube=true;
 	//end temp values
-	printf("AutonomousInit: mode %d, cube %s\n", mode, cube ? "true":"false");
+	printf("AutonomousInit: mode %f, cube %s\n", mode, cube ? "true":"false");
 	autoncommand = new Autonomous(mode, cube);
 	autoncommand->Start();
 }
