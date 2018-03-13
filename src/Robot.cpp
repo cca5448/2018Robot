@@ -49,8 +49,8 @@ void Robot::AutonomousInit(){
 	int mode = (int) SmartDashboard::GetNumber("cluMode",0);
 	bool cube = (bool) SmartDashboard::GetBoolean("cluDeliverCube",false);
 	//temp set values
-	mode=6;
-	cube=true;
+	//mode=6;
+	//cube=true;
 	//end temp values
 	printf("AutonomousInit: mode %d, cube %s\n", mode, cube ? "true":"false");
 	autoncommand = new Autonomous(mode, cube);

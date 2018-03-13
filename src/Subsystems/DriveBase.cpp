@@ -191,7 +191,7 @@ void DriveBase::ResetGyro()
 void DriveBase::DisplayGyro()
 {
 	double heading = pidgey->GetFusedHeading();
-	SmartDashboard::PutNumber("Gyro", heading);  //put the heading into the gyro item
+	SmartDashboard::PutNumber("hdng", heading);  //put the heading into the gyro item
 }
 
 bool DriveBase::IsGyroGood()
@@ -199,7 +199,7 @@ bool DriveBase::IsGyroGood()
 	PigeonIMU::GeneralStatus genStatus;
 	pidgey->GetGeneralStatus(genStatus);
 	bool IMUReady = (pidgey->GetState() == PigeonIMU::Ready) ? true : false;
-	printf("Gyro is good: %s\n", IMUReady ? "true" : "false");
+	//printf("Gyro is good: %s\n", IMUReady ? "true" : "false");
 	return IMUReady;
 //	return true;
 }
