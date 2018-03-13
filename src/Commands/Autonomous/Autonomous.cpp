@@ -52,12 +52,12 @@ Autonomous::Autonomous(int mode, bool cube)
 			break;
 		case 2: //left start, drive forward to baseline, turn right
 			SmartDashboard::PutString("Auton","Left Start, Drive Fwd, Turn and deliver cube if needed");
-			AddSequential(new AutoDriveForward(90));
+			AddSequential(new AutoDriveForward(168));
 			if (mySwitchLeft) { //if the Switch is on this side, turn and deliver a cube
 				printf("CLU: Turning right to goto switch.");
 				AddSequential(new AutoDriveTurnRight(90));
 				AddSequential(new AutoResetEncoder());
-				AddSequential(new AutoDriveForward(24));  //could use ultrasonic sensor here!
+				AddSequential(new AutoDriveForward(21));  //could use ultrasonic sensor here!
 			} else {
 				printf("CLU: The switch is too far away for me to reach!");
 			}
@@ -74,19 +74,19 @@ Autonomous::Autonomous(int mode, bool cube)
 			break;
 		case 3: //center start, drive forward to proper side, deliver cube
 			SmartDashboard::PutString("Auton","Center Start, Drive Fwd, Turn to correct switch, deliver cube");
-			AddSequential(new AutoDriveForward(10)); //drive part way to switch
+			AddSequential(new AutoDriveForward(15)); //drive part way to switch
 			if (mySwitchLeft) { //if the switch is on the left, turn left then right
 				printf("CLU: going to left side of switch\n");
-				AddSequential(new AutoDriveTurnLeft(45)); //turn left
-				AddSequential(new AutoDriveForward(72)); //drive forward to be in front of the switch
+				AddSequential(new AutoDriveTurnLeft(-315)); //turn left
+				AddSequential(new AutoDriveForward(74)); //drive forward to be in front of the switch
 				AddSequential(new AutoDriveTurnRight(45)); //turn towards the switch
-				AddSequential(new AutoDriveForward(20)); //drive forward to fenc. could use ultrasonic sensor here!
+				AddSequential(new AutoDriveForward(51)); //drive forward to fenc. could use ultrasonic sensor here!
 			} else { //switch is on the right, turn right then left
 				printf("CLU: going to right side of switch\n");
 				AddSequential(new AutoDriveTurnRight(45)); //turn right
-				AddSequential(new AutoDriveForward(72)); //drive forward to be in front of the switch
-				AddSequential(new AutoDriveTurnLeft(45)); //turn towards the switch
-				AddSequential(new AutoDriveForward(20)); //drive forward to fence. could use ultrasonic sensor here!
+				AddSequential(new AutoDriveForward(74)); //drive forward to be in front of the switch
+				AddSequential(new AutoDriveTurnLeft(-315)); //turn towards the switch
+				AddSequential(new AutoDriveForward(51)); //drive forward to fence. could use ultrasonic sensor here!
 			}
 			if (deliverCube) {
 				printf("CLU: Delivering a Cube!\n");
@@ -101,12 +101,12 @@ Autonomous::Autonomous(int mode, bool cube)
 			break;
 		case 4: //right start, drive forward to baseline, turn left
 			SmartDashboard::PutString("Auton","Right Start, Drive Fwd, Turn and deliver cube if needed");
-			AddSequential(new AutoDriveForward(90));
+			AddSequential(new AutoDriveForward(168));
 			if (mySwitchLeft) { //if the Switch is on this side, turn and deliver a cube
 				printf("CLU: Turning left to goto switch.");
 				AddSequential(new AutoDriveTurnLeft(90));
 				AddSequential(new AutoResetEncoder());
-				AddSequential(new AutoDriveForward(24)); //could use ultrasonic sensor here!
+				AddSequential(new AutoDriveForward(21)); //could use ultrasonic sensor here!
 			} else {
 				printf("CLU: The switch is too far away for me to reach!");
 			}
