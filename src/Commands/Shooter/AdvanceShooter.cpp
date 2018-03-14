@@ -3,7 +3,7 @@
 
 AdvanceShooter::AdvanceShooter()
 {
-	Requires(Robot::shooter); //requires the shooter subsystem
+	//Requires(Robot::shooter); //requires the shooter subsystem
 	Requires(Robot::intake); //requires the intake subsystem
 }
 

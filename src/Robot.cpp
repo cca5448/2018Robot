@@ -18,6 +18,8 @@ void Robot::RobotInit(){
 	drivebase = new DriveBase();
 	vision = new Vision();
 	air = new Air();
+	intake = new Intake();
+	shooter = new Shooter();
 
 /*
 	//setup auton drop downs

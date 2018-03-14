@@ -8,6 +8,9 @@
 //#include "Commands/Air/LowerShooter.h"
 //#include "Commands/Air/RaiseShooter.h"
 #include "Commands/Air/ToggleShooter.h"
+#include "Commands/Intake/IntakeIn.h"
+#include "Commands/Intake/IntakeOut.h"
+#include "Commands/Intake/IntakeStop.h"
 #include "Commands/Shooter/StartShooter.h"
 #include "Commands/Shooter/StopShooter.h"
 #include "Commands/Shooter/AdvanceShooter.h"
@@ -24,7 +27,7 @@ float DeadZone(float axisVal)
 
 float SteeringDeadZone(float uval)
 {
-	float f_absval, f_offset, f_uval, f_pow;
+	float f_absval, f_offset, f_uval;
     //if we are less than 0, then save an inversion for the end
 	float invert = 1.0;
 	if (uval < 0) invert = -1.0;
@@ -98,16 +101,16 @@ OI::OI()
 	l_buttons = new Joystick(JOY_OTHER);
 
 	//left button definitions
-	//intake_in_btn = new JoystickButton(l_buttons,BTN_INTAKE_IN);
-	//intake_stop_btn = new JoystickButton(l_buttons,BTN_INTAKE_STOP);
-	//intake_out_btn = new JoystickButton(l_buttons,BTN_INTAKE_OUT);
+	intake_in_btn = new JoystickButton(l_buttons,BTN_INTAKE_IN);
+	intake_stop_btn = new JoystickButton(l_buttons,BTN_INTAKE_STOP);
+	intake_out_btn = new JoystickButton(l_buttons,BTN_INTAKE_OUT);
 	auton_next = new JoystickButton(l_buttons,BTN_AUTON_NEXT);
 	auton_prev = new JoystickButton(l_buttons,BTN_AUTON_PREV);
 
 	//right button definitions
-	climber_up = new JoystickButton(r_buttons,BTN_CLIMB_UP);
-	climber_down = new JoystickButton(r_buttons,BTN_CLIMB_DOWN);
-	climber_stop = new JoystickButton(r_buttons,BTN_CLIMB_STOP);
+	//climber_up = new JoystickButton(r_buttons,BTN_CLIMB_UP);
+	//climber_down = new JoystickButton(r_buttons,BTN_CLIMB_DOWN);
+	//climber_stop = new JoystickButton(r_buttons,BTN_CLIMB_STOP);
 	//camera_toggle = new JoystickButton(r_buttons,BTN_CAM_TOGGLE);
 	shooter_toggle_btn = new JoystickButton(r_buttons,BTN_SHOOTER_UP);
 	shooter_stop_btn = new JoystickButton(r_buttons,BTN_SHOOTER_STOP);
@@ -119,13 +122,17 @@ OI::OI()
 	//auton_prev->ToggleWhenPressed(new PrevAuton()); //Prev Auton Mode
 	//camera_toggle->ToggleWhenPressed(new CameraToggle());
 
+	//intake buttons
+	intake_in_btn->WhenPressed(new IntakeIn());
+	intake_stop_btn->WhenPressed(new IntakeStop());
+	intake_out_btn->WhenPressed(new IntakeOut());
+
 	//climber buttons
 	//climber_up->ToggleWhenPressed(new StartClimberUp());
 	//climber_down->ToggleWhenPressed(new StartClimberDown());
 	//climber_stop->ToggleWhenPressed(new StopClimber());
 
 	//shooter button actions
-	shooter_toggle_btn->WhenPressed(new ToggleShooter());
 	shooter_toggle_btn->WhenPressed(new ToggleShooter());
 	shooter_stop_btn->WhenPressed(new StopShooter());
 	shooter_start_btn->WhenPressed(new StartShooter());

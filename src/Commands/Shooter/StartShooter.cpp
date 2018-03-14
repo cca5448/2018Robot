@@ -9,7 +9,6 @@ StartShooter::StartShooter()
 
 void StartShooter::Initialize()
 {
-	//SmartDashboard::PutString("Shooter Running","inittrue");
 }
 
 void StartShooter::Execute()

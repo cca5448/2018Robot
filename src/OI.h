@@ -17,9 +17,13 @@ class OI
 		Joystick * r_buttons; //right set of buttons
 
 		//create buttons for control
-		JoystickButton * climber_up; //retract climber
-		JoystickButton * climber_down; //extend climber
-		JoystickButton * climber_stop; //stop climber
+		JoystickButton * intake_in_btn; //retract climber
+		JoystickButton * intake_out_btn; //extend climber
+		JoystickButton * intake_stop_btn; //stop climber
+		//climber
+		//JoystickButton * climber_up; //retract climber
+		//JoystickButton * climber_down; //extend climber
+		//JoystickButton * climber_stop; //stop climber
 		//JoystickButton * camera_toggle; //switch camera view
 		JoystickButton * auton_next; //switch to next auton
 		JoystickButton * auton_prev; //switch to prev auton

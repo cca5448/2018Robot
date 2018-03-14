@@ -3,18 +3,17 @@
 
 StopShooter::StopShooter()
 {
-	Requires(Robot::shooter); //requires the shooter subsystem
+	//Requires(Robot::shooter); //requires the shooter subsystem
 }
 
 void StopShooter::Initialize()
 {
-	SmartDashboard::PutString("Shooter Running","initfalse");
+	//SmartDashboard::PutString("Shooter Running","initfalse");
 }
 
 void StopShooter::Execute()
 {
 	Robot::shooter->StopShooter();
-	SmartDashboard::PutString("Shooter Running","false");
 }
 
 bool StopShooter::IsFinished()

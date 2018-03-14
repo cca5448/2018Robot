@@ -46,8 +46,8 @@ void Shooter::StartShooterHigh()
 	right = Ceiling(right, 1.0);
 
 	printf("Shooter is high, start at speed %f\n", MOT_SHOOTER_SPEED_HIGH_DEF);
-	shooter_motor_left->Set(ControlMode::PercentOutput, left);
-	shooter_motor_right->Set(ControlMode::PercentOutput, -1. * right);
+	//shooter_motor_left->Set(ControlMode::PercentOutput, left);
+	//shooter_motor_right->Set(ControlMode::PercentOutput, -1. * right);
 }
 
 void Shooter::StartShooterLow()
@@ -58,15 +58,15 @@ void Shooter::StartShooterLow()
 	right = Ceiling(right, 1.0);
 
 	printf("Shooter is low, start at speed %f\n", MOT_SHOOTER_SPEED_LOW_DEF);
-	shooter_motor_left->Set(ControlMode::PercentOutput, left);
-	shooter_motor_right->Set(ControlMode::PercentOutput, -1. * right);
+	//shooter_motor_left->Set(ControlMode::PercentOutput, left);
+	//shooter_motor_right->Set(ControlMode::PercentOutput, -1. * right);
 }
 
 void Shooter::StopShooter()
 {
-	//SmartDashboard::PutBoolean(SDB_SHOOTER_LED_ID,false);
-	shooter_motor_left->Set(ControlMode::PercentOutput, 0);
-	shooter_motor_right->Set(ControlMode::PercentOutput, 0);
+	printf("Shooter stop\n");
+	//shooter_motor_left->Set(ControlMode::PercentOutput, 0);
+	//shooter_motor_right->Set(ControlMode::PercentOutput, 0);
 }
 
 float Shooter::GetShooterSpeed()
