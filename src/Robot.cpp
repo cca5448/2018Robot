@@ -8,6 +8,8 @@ OI * Robot::oi = NULL;
 DriveBase * Robot::drivebase = NULL;
 Vision * Robot::vision = NULL;
 Air * Robot::air = NULL;
+Intake * Robot::intake = NULL;
+Shooter * Robot::shooter = NULL;
 
 void Robot::RobotInit(){
 

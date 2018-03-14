@@ -8,6 +8,8 @@
 #include "Subsystems/DriveBase.h"
 #include "Subsystems/Vision.h"
 #include "Subsystems/Air.h"
+#include "Subsystems/Intake.h"
+#include "Subsystems/Shooter.h"
 
 class Robot: public IterativeRobot
 {
@@ -17,6 +19,8 @@ class Robot: public IterativeRobot
 		static DriveBase * drivebase;
 		static Vision * vision;
 		static Air * air;
+		static Intake * intake;
+		static Shooter * shooter;
 
 	private:
 		//LiveWindow * lw;
